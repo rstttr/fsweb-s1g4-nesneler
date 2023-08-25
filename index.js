@@ -15,10 +15,18 @@ const serpmeKahvalti = {isim: "Serpme Kahvaltı", fiyat: 16, kategori:"Kahvaltı
 */
 
 
-function MenuElemaniOlustur(/*Kodlar buraya*/){
+function MenuElemaniOlustur(name,price,category)
+	{
 	/*Kodlar buraya*/
-}
+	const item = {
 
+		isim : name,
+		fiyat: price,
+		kategori: category,
+	};
+	return item;
+}
+console.log(MenuElemaniOlustur("Cheesebuger",8,"Burgerler"));
 
 
 /*  Görev 1b (otomatik test yok): 
@@ -30,8 +38,12 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	
 	Örnek: MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar") şunu döndürür: {isim:"Karışık Pizza",fiyat:5,kategori:"Pizzalar"}
 */
+console.log(MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar"));
+console.log(MenuElemaniOlustur("Kahvaltı tabağı",10,"Kahvaltı"));
+console.log(MenuElemaniOlustur("Kola",3,"İçecekler"));
 
-
+const kahvaltiTabagi = MenuElemaniOlustur("Kahvaltı Tabağı", 10, "Kahvaltı");
+console.log("G1b4", kahvaltiTabagi.fiyat);
 
 /* Görev 2: 
 	Özel bir öğle yemeği yiyorsun! Öğretmen ve öğrencilere %25, diğer kişilere %10 indirim var. Aşağıdaki burger nesnesine, indirimi fiyatı otomatik olarak hesaplayan bir metot ekleyin.
@@ -50,10 +62,35 @@ const burger = {
 	isim: "Burger", 
 	fiyat: 18, 
 	kategori: "Öğle Yemeği", 
+     indirim: function(kisi)
+	 {
+		const ogretmen ="öğretmen";
+		const ogrenci ="öğrenci";
+		const diger="diger";
 
-}
+		let indirimliFiyat = this.fiyat;
 
+		if (kisi==ogrenci) {
+			indirimliFiyat=this.fiyat * 0.75;
+		}
+		else if(kisi==ogretmen)
+		{
+			indirimliFiyat=this.fiyat * 0.75;
+		}
+		else
+		{
+			indirimliFiyat=this.fiyat * 0.90;
+	
+	
+		}
 
+		return indirimliFiyat;
+	 },
+};
+
+console.log(burger.fiyat);
+console.log(burger.indirim("ögretmen"));
+console.log(burger.indirim("diger"));
 
 ///////////////Değerlendirmeler (MVP)///////////////////
 const degerlendirmeler = [
@@ -70,8 +107,15 @@ const degerlendirmeler = [
 /*  Görev 3 (ototest yok):  
 	Yukarıdaki degerlendirmeler dizisini(array) kullanarak:
 	1. Sadece Ahmet'in geribildirimini konsolda görüntüleyin - fonksiyona gerek yok
+	
 */
-
+for (const paket of degerlendirmeler) {
+	if (paket.isim=="Ahmet") 
+	{
+	console.log(paket.geribildirim);	
+	}
+	
+}
 
 
 /*  Görev 4 (ototest yok):  
@@ -80,7 +124,7 @@ const degerlendirmeler = [
 	2. degerlendirmeler dizisini konsolda görüntüleyerek çalışmanızı kontrol edin
 */
 
-
+console.log(degerlendirmeler[7].geribildirim);
 
 /*  Görev 5: 
 	isim, puan, geribildirim'i içeren bir değerlendirme nesnesi oluşturup, yeni değerlendirmeyi mevcut dizinin(array) sonuna ekleyip sonuç dizisini döndüren bir fonksiyon tanımlayın. 
@@ -94,11 +138,20 @@ const degerlendirmeler = [
 */
 
 
-function DegerlendirmeEkle(/*Kodlar buraya */){
+function DegerlendirmeEkle(degerlendirmeler,isimgir,puangir,geribildirimgir){
 	/*Kodlar buraya */
-	
+	degerlendirmeler.push({
+		isim :isimgir,
+		puan:puangir,
+		geribildirim:geribildirimgir,
+	});
+	return degerlendirmeler;
 }
-
+console.log(DegerlendirmeEkle(degerlendirmeler,"Hurşut",2,"Boktan yemekler!"));
+console.log(
+	"G5",
+	DegerlendirmeEkle(degerlendirmeler, "Hurşut", 2, "B*ktan yemekler!")
+  );
 
 
 /*  Görev 6: 
@@ -112,12 +165,19 @@ function DegerlendirmeEkle(/*Kodlar buraya */){
 */
 
 
-function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
+function AnahtardanDegerlendirmeAl(arr,index) {
 	/*Kodlar buraya*/
+	const str =`${arr[index].isim} isimli kişi ${arr[index].puan} puan verdi ve şunları yazdı: ${arr[index].geribildirim}`;
+	const str2 =arr[index].isim +
+    " isimli kişi " +
+    arr[index].puan +
+    " puan verdi ve şunları yazdı: " +
+    arr[index].geribildirim;
+  return str;
 
 }
 
-
+console.log(AnahtardanDegerlendirmeAl(degerlendirmeler,0));
 
 /*  Görev 7:  
 	Diziden en son değerlendirmeyi döndüren adı `SonDegerlendirmeyiAl` olan bir fonksiyon yazın 
@@ -132,8 +192,11 @@ function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
 */
 
 
-function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
+function SonDegerlendirmeyiAl(dizi) {
+	const sonEleman=dizi[dizi.length-1];
+	const{isim , puan ,geribildirim} = sonEleman
+	return `${isim} isimli kişi ${puan} puan verdi ve şunları yazdı: ${geribildirim}`;
+	
 } 
 
 
